@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
         message: 'The API is working!'
     });
 });
-const blogRoutes = require('./routes/blogRoutes');
+const blogRoutes = require('./Routes/blogRoutes');
 const user = require("./Routes/UserRoutes");
 const cors = require('cors')
 
