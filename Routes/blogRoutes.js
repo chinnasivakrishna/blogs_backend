@@ -88,25 +88,30 @@ blog.route("/").post(verifyToken, async (req, res) => {
 
 blog.route('/:blogId/comments').get(async (req, res) => {
   const { blogId } = req.params;
-  console.log(blogId)
-  
 
   try {
     const blog = await Blog.findById(blogId).select('comments');
-    const user = await Blog.findById(blogId).select('user');
-    console.log(user)
-    const Email = user.user;
-    console.log(Email)
-    const name = await User.findOne({ Email })
-    console.log(name)
+    
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
 
-    res.status(200).json(blog.comments);
+    const commentsWithUserNames = await Promise.all(
+      blog.comments.map(async (comment) => {
+        const user = await User.findOne({ email: comment.user });
+        return {
+          name: user ? user.name : 'Unknown',
+          content: comment.content,
+          date: comment.date,
+        };
+      })
+    );
+
+    res.status(200).json(commentsWithUserNames);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error fetching comments', error: err.message });
   }
 });
+
 
 blog.route('/:id').put(verifyToken, async (req, res) => {
   try {
