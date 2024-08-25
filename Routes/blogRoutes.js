@@ -95,6 +95,7 @@ blog.route('/:blogId/comments').get(async (req, res) => {
     const blog = await Blog.findById(blogId).select('comments');
     const user = await Blog.findById(blogId);
     const Email = user.user;
+    console.log(Email)
     const name = await User.findOne({ Email })
     console.log(name)
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
