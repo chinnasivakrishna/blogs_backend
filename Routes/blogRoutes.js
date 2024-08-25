@@ -93,7 +93,7 @@ blog.route('/:blogId/comments').get(async (req, res) => {
 
   try {
     const blog = await Blog.findById(blogId).select('comments');
-    console.log(comments)
+    console.log(blog)
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
 
     res.status(200).json(blog.comments);
