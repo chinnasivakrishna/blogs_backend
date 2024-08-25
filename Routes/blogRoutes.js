@@ -86,7 +86,7 @@ blog.route("/").post(verifyToken, async (req, res) => {
   }
 });
 
-blog.route('/:blogId/comments').get( verifyToken,async (req, res) => {
+blog.route('/:blogId/comments').get(async (req, res) => {
   const { blogId } = req.params;
   
 
