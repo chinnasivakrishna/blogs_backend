@@ -69,7 +69,6 @@ blog.route("/").post(verifyToken, async (req, res) => {
     const user = req.user.email;
     console.log(user)
     let Email = user
-
   try {
     const blog = await Blog.findById(blogId);
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
