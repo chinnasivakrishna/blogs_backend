@@ -1,7 +1,7 @@
 const express = require('express');
 const Blog = require('../Model/Blog');
 const bodyParser = require("body-parser")
-
+const {User} = require("../Model/User")
 const blog = express.Router();
 const app = express();
 app.use(bodyParser.json())
@@ -66,13 +66,15 @@ blog.route("/").post(verifyToken, async (req, res) => {
   blog.route('/:blogId/comments').post(verifyToken, async (req, res) => {
   const { blogId } = req.params;
   const { content } = req.body;
-  const user = req.user.email;
+    const user = req.user.email;
+    let Email = user
+    const name = await User.findOne({ Email });
 
   try {
     const blog = await Blog.findById(blogId);
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
 
-    blog.comments.push({ user, content });
+    blog.comments.push({ name, content });
     await blog.save();
 
     res.status(200).json({ message: 'Comment added successfully', blog });
