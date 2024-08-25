@@ -93,7 +93,8 @@ blog.route('/:blogId/comments').get(async (req, res) => {
 
   try {
     const blog = await Blog.findById(blogId).select('comments');
-    const user = await Blog.findById(blogId);
+    const user = await Blog.findById(blogId).select('user');
+    console.log(user)
     const Email = user.user;
     console.log(Email)
     const name = await User.findOne({ Email })
