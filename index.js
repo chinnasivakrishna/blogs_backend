@@ -16,7 +16,13 @@ const blogRoutes = require('./Routes/blogRoutes');
 const user = require("./Routes/UserRoutes");
 const cors = require('cors')
 
-app.use(cors())
+app.use(cors({
+  origin: ["https://blogs-three-rho.vercel.app"],
+  methods: ["GET", "POST","PUT", "DELETE"],
+  credentials:true
+}));
+app.use(bodyParser.json());
+
 
 app.use(express.json());
 
