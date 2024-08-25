@@ -96,7 +96,7 @@ blog.route('/:blogId/comments').get(async (req, res) => {
 
     const commentsWithUserNames = await Promise.all(
       blog.comments.map(async (comment) => {
-        const user = await User.findOne({ email: comment.user });
+        const user = await User.findOne({ Email: comment.user });
         return {
           name: user ? user.name : 'Unknown',
           content: comment.content,
@@ -104,6 +104,7 @@ blog.route('/:blogId/comments').get(async (req, res) => {
         };
       })
     );
+    console.log(commentsWithUserNames)
 
     res.status(200).json(commentsWithUserNames);
   } catch (err) {
