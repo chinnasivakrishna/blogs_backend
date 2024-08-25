@@ -67,6 +67,7 @@ blog.route("/").post(verifyToken, async (req, res) => {
   const { blogId } = req.params;
   const { content } = req.body;
     const user = req.user.email;
+    console.log(user)
     let Email = user
     const name = await User.findOne({ Email });
 
