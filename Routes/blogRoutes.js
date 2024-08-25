@@ -1,4 +1,3 @@
-// routes/blogRoutes.js
 const express = require('express');
 const Blog = require('../Model/Blog');
 const bodyParser = require("body-parser")
@@ -6,15 +5,13 @@ const bodyParser = require("body-parser")
 const blog = express.Router();
 const app = express();
 app.use(bodyParser.json())
-  // Endpoint to create a new blog post
-const verifyToken = require("../middleware/authMiddleware"); // Import the middleware
+const verifyToken = require("../middleware/authMiddleware"); 
 const router = express.Router();
 
 
-// Endpoint to create a new blog post
 blog.route("/").post(verifyToken, async (req, res) => {
   try {
-    const { title, image, contents, conclusion } = req.body; // Expecting URLs for images
+    const { title, image, contents, conclusion } = req.body; 
 
     const newBlog = new Blog({
       title,
@@ -35,7 +32,7 @@ blog.route("/").post(verifyToken, async (req, res) => {
 
   blog.route('/').get(async (req, res) => {
   try {
-    const blogs = await Blog.find({}, 'title'); // Fetch only the title field
+    const blogs = await Blog.find({}, 'title'); 
     res.status(200).json(blogs);
   } catch (err) {
     console.error(err);
@@ -45,8 +42,8 @@ blog.route("/").post(verifyToken, async (req, res) => {
 
   blog.route("/my-blogs").get(verifyToken, async (req, res) => {
   try {
-    const userEmail = req.user.email; // Extract user's email from the JWT token
-    const userBlogs = await Blog.find({ author: userEmail }); // Find blogs authored by the user'
+    const userEmail = req.user.email;
+    const userBlogs = await Blog.find({ author: userEmail }); 
     console.log(userEmail)
     res.status(200).json(userBlogs);
   } catch (err) {
@@ -85,7 +82,6 @@ blog.route("/").post(verifyToken, async (req, res) => {
   }
 });
 
-// Get comments for a blog
 blog.route('/:blogId/comments').get(async (req, res) => {
   const { blogId } = req.params;
 
@@ -100,7 +96,6 @@ blog.route('/:blogId/comments').get(async (req, res) => {
   }
 });
 
-// Route to update a blog post
 blog.route('/:id').put(verifyToken, async (req, res) => {
   try {
     const { title, image, contents, conclusion } = req.body;
@@ -115,7 +110,6 @@ blog.route('/:id').put(verifyToken, async (req, res) => {
   }
 });
 
-// Route to delete a blog post
 blog.route('/:id').delete(verifyToken, async (req, res) => {
   try {
     const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
@@ -129,7 +123,6 @@ blog.route('/:id').delete(verifyToken, async (req, res) => {
   }
 });
 
-// Route to get a single blog post by ID
 blog.route('/:id').get(verifyToken, async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);

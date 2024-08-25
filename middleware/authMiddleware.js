@@ -18,7 +18,7 @@ const verifyToken = (req, res, next) => {
     console.log(token)
     console.log(JWT_SECRET)
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded; // Store decoded user data in request
+    req.user = decoded;
     next();
   } catch (err) {
     console.log(err)

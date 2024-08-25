@@ -1,4 +1,3 @@
-// server.js
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -28,7 +27,7 @@ app.use(express.json());
 
 
 
-app.use('/api/blogs', blogRoutes);
+app.use('/api/posts', blogRoutes);
 app.use("/api", user);
 
 
