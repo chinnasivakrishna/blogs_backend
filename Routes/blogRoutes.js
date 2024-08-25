@@ -69,13 +69,12 @@ blog.route("/").post(verifyToken, async (req, res) => {
     const user = req.user.email;
     console.log(user)
     let Email = user
-    const name = await User.findOne({ Email });
 
   try {
     const blog = await Blog.findById(blogId);
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
 
-    blog.comments.push({ name, content });
+    blog.comments.push({ user, content });
     await blog.save();
 
     res.status(200).json({ message: 'Comment added successfully', blog });
