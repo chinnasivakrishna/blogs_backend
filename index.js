@@ -16,7 +16,7 @@ const user = require("./Routes/UserRoutes");
 const cors = require('cors')
 
 app.use(cors({
-  origin: ["https://blogs-evshr5mgm-sivas-projects-70b20ed5.vercel.app"],
+  origin: ["https://blogs-three-rho.vercel.app"],
   methods: ["GET", "POST","PUT", "DELETE"],
   credentials:true
 }));
