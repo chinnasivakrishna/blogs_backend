@@ -86,8 +86,14 @@ blog.route("/").post(verifyToken, async (req, res) => {
   }
 });
 
-blog.route('/:blogId/comments').get(async (req, res) => {
+blog.route('/:blogId/comments').get( verifyToken,async (req, res) => {
   const { blogId } = req.params;
+  const user = req.user.email;
+    console.log(user)
+    let Email = user
+    const name = await User.findOne({ Email });
+    const name1 = name.Name;
+    console.log(name1);
 
   try {
     const blog = await Blog.findById(blogId).select('comments');
