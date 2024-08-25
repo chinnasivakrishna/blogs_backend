@@ -98,7 +98,7 @@ blog.route('/:blogId/comments').get(async (req, res) => {
       blog.comments.map(async (comment) => {
         const user = await User.findOne({ Email: comment.user });
         return {
-          name: Name ? user.name : 'Unknown',
+          name: user.Name,
           content: comment.content,
           date: comment.date,
         };
